@@ -1,6 +1,7 @@
 import { loadMatches } from "@/lib/supabase-matches";
 import { CheckInButton } from "@/components/check-in-button";
 import { AuthNavigation } from "@/components/auth-navigation";
+import { ActivityFeed } from "@/components/activity-feed";
 export default async function HomePage() {
   const result = await loadMatches();
   return <main className="mx-auto max-w-3xl px-5 py-10 sm:py-16">
@@ -24,6 +25,7 @@ export default async function HomePage() {
         <CheckInButton matchId={match.id} />
       </article>)}
     </section>
-    <footer className="mt-10 border-t border-slate-200 pt-5 text-sm text-slate-500">IBE205 · Delivery 3-prototype · Sosial feed er ikke implementert</footer>
+    <ActivityFeed />
+    <footer className="mt-10 border-t border-slate-200 pt-5 text-sm text-slate-500">IBE205 · Delivery 3-prototype</footer>
   </main>;
 }
