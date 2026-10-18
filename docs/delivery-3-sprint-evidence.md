@@ -1,29 +1,28 @@
 # Delivery 3 — Increment Review and Working Prototype
 
-## Scope from assignment
-Prototype: user login, user profiles, stadium check-ins, social activity feed (prioritize if time is short).
-Engineering: automated key-feature tests; CI builds/tests on commits; collect process data from GitHub.
-Report: 5–10 pages covering Sprint Review, Retrospective, teamwork, testing, CI/CD and lessons learned.
+## Assignment scope
+Prototype: login, user profiles, stadium check-ins and a social feed (prioritize if short on time).
+Quality: automated key-feature tests, CI build/test on commits, GitHub process evidence.
+Report: 5–10 pages, Sprint Review and Retrospective, teamwork, testing, CI/CD and lessons learned.
 
-## Sprint increment status (evidence, not assumptions)
-- Before D3: match list is deployed; Supabase read access verified by the developer in Preview and Production.
-- Auth/profile increment: implementation proposed in this branch, NOT yet merged or verified against live Supabase.
-- Check-ins and social feed: not yet implemented.
-- Team Sprint Review / Retrospective: not yet performed; do not fabricate group participation.
-- GitHub Actions workflow: exists, but verify checks for this branch before merging.
-- Collect actual commit timestamps, PRs, CI run URLs/results, deployment outcomes and defects throughout sprint.
+## Actual evidence and remaining validation
+- PR #26: Supabase Auth login/profile increment merged into main; developer manually tested registration, login, profile display and logout in Vercel Preview. GitHub Actions passed.
+- Check-in increment: implemented in this branch, not yet validated against live Supabase or merged.
+- Social feed: not implemented.
+- Sprint Review / Retrospective: not yet conducted. Do not invent group participation or peer feedback.
+- Collect actual GitHub PR/commit dates, CI results, deployment outcomes, manual test observations and defects.
 
-## Manual acceptance checks before merge
-1. Run migration `supabase/migrations/202610180001_auth_profiles.sql` in Supabase SQL Editor.
-2. Ensure Supabase Auth email signup is enabled; inspect email confirmation settings.
-3. In Vercel Preview, register with a test email and confirm as configured.
-4. Log in; verify /profil displays the account and name; log out; verify access is denied.
-5. Verify users cannot read other users' profiles (RLS) and no credentials appear in logs.
-6. Check the GitHub Actions build/test result and capture the Preview deployment result.
+## Acceptance tests for check-in PR
+1. Review and run `supabase/migrations/202610180002_checkins.sql` in Supabase SQL Editor.
+2. Open Vercel Preview, log in, open homepage and check in to the fictional demo match.
+3. Confirm success message and a new entry in /profil under Min besøkshistorikk.
+4. Try a duplicate check-in: should be rejected with an understandable message.
+5. Log out and attempt to check in: should require login.
+6. Verify RLS in Supabase: user A cannot read or insert rows for user B.
+7. Confirm GitHub Actions checks pass before merging.
 
-## Security and limitations
-- Auth uses Supabase Auth REST endpoints through Next.js API routes; session tokens are HTTP-only cookies.
-- This prototype does not implement password reset, profile editing, rate limiting, or production-grade abuse controls.
-- Never commit service-role keys, real user passwords or environment variable values.
-- RLS for profile read exists in the first migration; profile provisioning requires the new migration.
-- Check-ins and social feed will require separate RLS design and testing.
+## Prototype limitations
+- Check-in is allowed on any existing match, including the fictional demo fixture; no geolocation or match-time validation yet.
+- The app only displays the first 20 matches and the 50 most recent check-ins.
+- No photo upload, comments, social feed, moderation or admin UI yet.
+- Live RLS isolation tests remain mandatory before claiming access controls are verified.
