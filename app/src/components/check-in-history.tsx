@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-
+import { ShareCheckIn } from "./share-check-in";
 type HistoryItem = {
   id: string;
   created_at: string;
@@ -30,6 +30,7 @@ export function CheckInHistory() {
       <p className="font-semibold">{item.matches?.home_club?.name ?? "Hjemmelag"} – {item.matches?.away_club?.name ?? "Bortelag"}</p>
       <p className="text-sm text-slate-600">{item.matches?.stadium?.name ?? "Ukjent stadion"} · {item.matches?.start_time ? new Date(item.matches.start_time).toLocaleString("nb-NO", { timeZone: "Europe/Oslo" }) : "Ukjent dato"}</p>
       <p className="text-xs text-slate-500">Innsjekket {new Date(item.created_at).toLocaleString("nb-NO", { timeZone: "Europe/Oslo" })}</p>
+      <ShareCheckIn checkInId={item.id} />
     </li>)}</ul>}
   </section>;
 }
