@@ -250,25 +250,13 @@ For a concise map of how Discovery, UX, domain modelling, architecture, Git, CI 
 
 ## Repository structure
 
-The repository is organized around the following Deliverable 2 structure:
+The implemented prototype lives in `app/` (Next.js 15, React 19, TypeScript); `supabase/migrations/` contains versioned database migrations; `.github/workflows/app-checks.yml` runs the automated quality gate; `docs/` contains Discovery, Design and Delivery 3 evidence. The Vercel project uses `app/` as its root directory.
 
-``` text
-stadionhopper/
-├── README.md
-├── docs/
-│   ├── discovery/
-│   ├── domain/
-│   ├── architecture/
-│   ├── ux/
-│   ├── git/
-│   ├── ci/
-│   └── testing/
-├── src/          # added when implementation begins
-├── tests/        # added with executable tests
-└── .github/      # CI/workflow configuration
-```
+**Live demo:** https://stadionhopper.vercel.app
 
-The structure keeps product discovery, technical design, UX and quality documentation separate while preserving a clear Git trace. Empty implementation folders are added only when they contain real project artefacts.
+**Run locally:** From `app/`, run `npm ci`, configure the Supabase environment values required by the application, then `npm run dev`. For checks run `npm run lint` (TypeScript typecheck, **not ESLint**), `npm test` (Vitest), and `npm run build`. Do not commit secret environment values.
+
+**Scope note:** The earlier MoSCoW list above is a product hypothesis/backlog, **not a list of implemented features**. Follow/friend features, administration, photos, events, reactions and moderation are not part of the verified Delivery 3 prototype. The demo uses seeded fictional match data; check-in is not proof of physical attendance.
 
 ------------------------------------------------------------------------
 
@@ -288,19 +276,18 @@ The course project is organized around four agile deliveries:
 
 ### Current phase
 
-**Deliverable 2 -- Design**
+**Deliverable 3 -- Working prototype and increment review (October 2026)**
 
-Current focus:
+Delivery 3 implemented and manually exercised: registration/sign-in, profile, match/stadium check-in, personal visit history, duplicate prevention and an opt-in activity feed. Two-account UI checks were performed; direct adversarial database RLS tests and formal stakeholder usability studies were not performed. Formal team Sprint Review and Retrospective were not conducted.
 
--   [x] Discovery foundation from Deliverable 1
--   [x] UX design and clickable prototype
--   [x] Initial domain model and pseudocode
--   [ ] Confirm open domain-model decisions as a team
--   [x] Proposed solution architecture and documented open technical decisions
--   [x] Git strategy
--   [x] CI strategy
--   [x] Test strategy
--   [ ] Validate key UX assumptions with real users when a testable implementation is available
+- [x] Integrated Next.js prototype and Supabase Auth/data
+- [x] Check-in and visit history
+- [x] Opt-in social feed
+- [x] Automated TypeScript check, Vitest tests and production build in GitHub Actions
+- [x] Deploy prototype on Vercel
+- [ ] Independent RLS/security verification and real user research
+
+See [Delivery 3 evidence](docs/delivery-3-sprint-evidence.md) for completed checks and limitations.
 
 ------------------------------------------------------------------------
 
